@@ -18,7 +18,7 @@ MAXTEMP = 32
 #how many color values we can have
 COLORDEPTH = 1024
 
-os.putenv('SDL_FBDEV', '/dev/fb1')
+#os.putenv('SDL_FBDEV', '/dev/fb1')
 pygame.init()
 
 #initialize the sensor
