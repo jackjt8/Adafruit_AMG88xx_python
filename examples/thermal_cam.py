@@ -60,19 +60,24 @@ def map(x, in_min, in_max, out_min, out_max):
 
 #let the sensor initialize
 time.sleep(.1)
-	
-while(1):
 
-	#read the pixels
-	pixels = sensor.readPixels()
-	pixels = [map(p, MINTEMP, MAXTEMP, 0, COLORDEPTH - 1) for p in pixels]
-	
-	#perdorm interpolation
-	bicubic = griddata(points, pixels, (grid_x, grid_y), method='cubic')
-	
-	#draw everything
-	for ix, row in enumerate(bicubic):
-		for jx, pixel in enumerate(row):
-			pygame.draw.rect(lcd, colors[constrain(int(pixel), 0, COLORDEPTH- 1)], (displayPixelHeight * ix, displayPixelWidth * jx, displayPixelHeight, displayPixelWidth))
-	
-	pygame.display.update()
+try:	
+    while(1):
+    
+    	#read the pixels
+    	pixels = sensor.readPixels()
+    	pixels = [map(p, MINTEMP, MAXTEMP, 0, COLORDEPTH - 1) for p in pixels]
+    	
+    	#perdorm interpolation
+    	bicubic = griddata(points, pixels, (grid_x, grid_y), method='cubic')
+    	
+    	#draw everything
+    	for ix, row in enumerate(bicubic):
+    		for jx, pixel in enumerate(row):
+    			pygame.draw.rect(lcd, colors[constrain(int(pixel), 0, COLORDEPTH- 1)], (displayPixelHeight * ix, displayPixelWidth * jx, displayPixelHeight, displayPixelWidth))
+    	
+    	pygame.display.update()
+except KeyboardInterrupt:
+    pass
+
+
