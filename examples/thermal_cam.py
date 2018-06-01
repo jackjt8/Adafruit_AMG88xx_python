@@ -1,6 +1,7 @@
 from Adafruit_AMG88xx import Adafruit_AMG88xx
 import pygame
 import os
+import sys
 import math
 import time
 
@@ -61,25 +62,28 @@ def map(x, in_min, in_max, out_min, out_max):
 #let the sensor initialize
 time.sleep(.1)
 
-try:	
-    while(1):
+running = True
+while running:
+    #read the pixels
+    pixels = sensor.readPixels()
+    pixels = [map(p, MINTEMP, MAXTEMP, 0, COLORDEPTH - 1) for p in pixels]
+    #perdorm interpolation
+    bicubic = griddata(points, pixels, (grid_x, grid_y), method='cubic')
     
-    	#read the pixels
-    	pixels = sensor.readPixels()
-    	pixels = [map(p, MINTEMP, MAXTEMP, 0, COLORDEPTH - 1) for p in pixels]
-    	
-    	#perdorm interpolation
-    	bicubic = griddata(points, pixels, (grid_x, grid_y), method='cubic')
-    	
-    	#draw everything
-    	for ix, row in enumerate(bicubic):
-    		for jx, pixel in enumerate(row):
-    			pygame.draw.rect(lcd, colors[constrain(int(pixel), 0, COLORDEPTH- 1)], (displayPixelHeight * ix, displayPixelWidth * jx, displayPixelHeight, displayPixelWidth))
-    	
-    	pygame.display.update()
-except KeyboardInterrupt:
-    pygame.quit()
-    sys.exit()
+    #draw everything
+    for ix, row in enumerate(bicubic):
+        for jx, pixel in enumerate(row):
+            pygame.draw.rect(lcd, colors[constrain(int(pixel), 0, COLORDEPTH- 1)], (displayPixelHeight * ix, displayPixelWidth * jx, displayPixelHeight, displayPixelWidth))
+	
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        if event.type == pygame.K_q:
+            running = False 
+            
+    pygame.display.update()
 
-
+pygame.display.quit()
+pygame.quit()
+sys.exit()
 
