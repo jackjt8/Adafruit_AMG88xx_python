@@ -78,7 +78,6 @@ try:
     	
     	pygame.display.update()
 except KeyboardInterrupt:
-    pass
     pygame.quit()
     sys.exit()
 
