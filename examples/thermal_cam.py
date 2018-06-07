@@ -57,7 +57,7 @@ def constrain(val, min_val, max_val):
     return min(max_val, max(min_val, val))
 
 def map(x, in_min, in_max, out_min, out_max):
-  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
 #let the sensor initialize
 time.sleep(.1)
