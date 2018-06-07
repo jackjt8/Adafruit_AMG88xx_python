@@ -1,5 +1,6 @@
 from Adafruit_AMG88xx import Adafruit_AMG88xx
 import pygame
+clock = pygame.time.Clock()
 import os
 import sys
 import math
@@ -85,6 +86,7 @@ while running:
                 running = False
             
     pygame.display.update()
+    clock.tick(1) # Sets Framerate to 1FPS
 
 time.sleep(.5)
 pygame.display.quit()
