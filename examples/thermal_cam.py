@@ -83,7 +83,10 @@ while running:
             
     pygame.display.update()
 
+time.sleep(.1)
 pygame.display.quit()
+time.sleep(.1)
 pygame.quit()
+time.sleep(.1)
 sys.exit()
 
