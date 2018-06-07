@@ -92,6 +92,6 @@ time.sleep(.5)
 pygame.display.quit()
 time.sleep(.5)
 pygame.quit()
-time.sleep(.5)
-sys.exit()
+#time.sleep(.5)
+#sys.exit()
 
