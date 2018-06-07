@@ -1,6 +1,5 @@
 from Adafruit_AMG88xx import Adafruit_AMG88xx
 import pygame
-from pygame.locals import *
 import os
 import sys
 import math
@@ -79,9 +78,11 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        elif event.type == KEYDOWN:
-	    if event.key == K_q:
-            	running = False 
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_q:
+                running = False
+            elif event.key == pygame.K_ESCAPE:
+                running = False
             
     pygame.display.update()
 
